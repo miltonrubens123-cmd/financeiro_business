@@ -2,11 +2,14 @@ import streamlit as st
 from datetime import date
 from database import fetch_dataframe
 from auth import proteger_pagina, logout
+from theme import aplicar_design_portal, render_header, render_sidebar_brand
 
 st.set_page_config(
     page_title="Financeiro Business Vision",
     layout="wide"
 )
+
+aplicar_design_portal()
 
 st.markdown("""
 <style>
@@ -48,12 +51,15 @@ def formatar_data(data):
 
 proteger_pagina()
 
+render_sidebar_brand()
+
 st.sidebar.write(f"Usuário: {st.session_state['usuario_nome']}")
 logout()
 
-st.title("Financeiro Business Vision")
-st.markdown("Dashboard financeiro interno — visão executiva do MVP")
-
+render_header(
+    "Financeiro Business Vision",
+    "Dashboard financeiro executivo"
+)
 st.divider()
 
 col_f1, col_f2 = st.columns(2)

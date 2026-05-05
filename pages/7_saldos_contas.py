@@ -1,18 +1,23 @@
 import streamlit as st
 from database import fetch_dataframe
 from auth import proteger_pagina, logout
+from theme import aplicar_design_portal, render_header, render_sidebar_brand
 
+aplicar_design_portal()
 proteger_pagina()
-logout()
+render_sidebar_brand()
 
-st.title("Saldos por Conta / Cartão")
-
-st.markdown("Visão consolidada de saldo inicial, receitas recebidas, despesas pagas e saldo atual por conta/cartão.")
+st.sidebar.write(f"Usuário: {st.session_state['usuario_nome']}")
+render_header(
+    "Saldos por Conta / Cartão",
+    "Visão" \
+    " consolidada de saldo inicial, receitas recebidas, despesas pagas e saldo atual por conta/cartão.",
+)
+logout("logout_saldos")
 
 st.divider()
 
-df = fetch_dataframe(
-    """
+df = fetch_dataframe("""
     SELECT
         cc.nome AS conta_cartao,
         cc.tipo,
@@ -47,8 +52,7 @@ df = fetch_dataframe(
     FROM contas_cartoes cc
     WHERE cc.ativo = TRUE
     ORDER BY cc.nome
-    """
-)
+    """)
 
 if df.empty:
     st.info("Nenhuma conta/cartão cadastrada.")

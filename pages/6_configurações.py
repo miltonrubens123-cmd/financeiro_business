@@ -1,15 +1,21 @@
 import streamlit as st
 from database import execute_query, fetch_dataframe
 from auth import proteger_pagina, logout
+from theme import aplicar_design_portal, render_header, render_sidebar_brand
 
+aplicar_design_portal()
 proteger_pagina()
-logout()
+render_sidebar_brand()
 
-st.title("Configurações")
-
-st.markdown("Cadastros auxiliares para padronizar categorias, contas e cartões.")
+st.sidebar.write(f"Usuário: {st.session_state['usuario_nome']}")
+render_header(
+    "Configurações",
+    "Cadastros auxiliares para padronizar categorias, contas e cartões."
+)
+logout("logout_configuracoes")
 
 st.divider()
+
 
 col1, col2 = st.columns(2)
 

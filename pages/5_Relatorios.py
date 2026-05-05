@@ -3,10 +3,19 @@ from datetime import date
 from database import fetch_dataframe
 import pandas as pd
 from io import BytesIO
+from auth import proteger_pagina, logout
+from theme import aplicar_design_portal, render_header, render_sidebar_brand
 
-st.title("Relatórios")
+aplicar_design_portal()
+proteger_pagina()
+render_sidebar_brand()
+st.sidebar.write(f"Usuário: {st.session_state['usuario_nome']}")
+render_header(
+    "Relatórios",
+    "Análise financeira por período, categoria e resultado consolidado."
+)
+logout("logout_relatorios")
 
-st.markdown("Análise financeira por período, categoria e resultado consolidado.")
 
 st.divider()
 

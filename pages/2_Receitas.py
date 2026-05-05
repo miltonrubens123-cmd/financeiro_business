@@ -1,12 +1,19 @@
 import streamlit as st
 from database import execute_query, fetch_dataframe
 from auth import proteger_pagina, logout
+from theme import aplicar_design_portal, render_header, render_sidebar_brand
 
+aplicar_design_portal()
 proteger_pagina()
-logout()
+render_sidebar_brand()
 
-st.title("Receitas")
-st.markdown("Cadastro e acompanhamento de receitas previstas e recebidas.")
+st.sidebar.write(f"Usuário: {st.session_state['usuario_nome']}")
+
+render_header(
+    "Receitas",
+    "Gestão de entradas financeiras"
+)
+logout("logout_receitas")
 
 st.divider()
 

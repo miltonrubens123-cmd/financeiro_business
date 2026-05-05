@@ -1,16 +1,17 @@
 import streamlit as st
 from database import execute_query, fetch_dataframe
 from auth import proteger_pagina, logout
+from theme import aplicar_design_portal, render_header, render_sidebar_brand
 
-
+aplicar_design_portal()
 proteger_pagina()
-logout()
-
-
-st.title("Planejamento DAS")
-
-st.markdown("Controle dos DAS atrasados e previsão de pagamento.")
-
+render_sidebar_brand()
+st.sidebar.write(f"Usuário: {st.session_state['usuario_nome']}")
+render_header(
+    "Planejamento DAS",
+    "Gestão dos DAS atrasados e previsão de pagamento"
+)
+logout("logout_planejamento_das")
 st.divider()
 
 with st.expander("Novo planejamento DAS", expanded=False):
